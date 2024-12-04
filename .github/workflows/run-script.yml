@@ -1,0 +1,27 @@
+name: Run vadassery.py every 6 days
+
+on:
+  schedule:
+    - cron: '0 0 */6 * *' # Runs once every 6 days at midnight UTC
+
+jobs:
+  run-vadassery:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.7.0' # Use your Python version
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run vadassery.py
+        env:
+          SUPABASE_URL: https://aobcelfbawxxsalayguh.supabase.co
+          SUPABASE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvYmNlbGZiYXd4eHNhbGF5Z3VoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQwNDEwMDQsImV4cCI6MjAzOTYxNzAwNH0.9Y6PK59s7-2WXh1k4BMueB4j6yeKyVLL6K4IZk0tri4
+        run: python vadassery.py
